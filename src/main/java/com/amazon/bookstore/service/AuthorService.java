@@ -1,5 +1,7 @@
 package com.amazon.bookstore.service;
 
+import com.amazon.bookstore.model.Author;
+
 import java.util.List;
 
 public interface AuthorService {
