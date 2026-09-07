@@ -1,6 +1,6 @@
 package com.amazon.bookstore.dao;
 
-import com.bootcamp.bookstore.model.Category;
+import com.amazon.bookstore.model.Category;
 
 import java.util.List;
 
