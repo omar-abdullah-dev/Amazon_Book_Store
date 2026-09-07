@@ -1,6 +1,6 @@
 package com.amazon.bookstore.dao;
 
-import com.bootcamp.bookstore.model.Book;
+import com.amazon.bookstore.model.Book;
 
 import java.util.List;
 
@@ -18,3 +18,4 @@ public interface BookDAO {
 
     void delete(int id);
 }
+

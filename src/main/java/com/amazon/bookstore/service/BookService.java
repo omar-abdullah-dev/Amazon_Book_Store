@@ -1,6 +1,6 @@
 package com.amazon.bookstore.service;
 
-import com.bootcamp.bookstore.model.Book;
+import com.amazon.bookstore.model.Book;
 
 import java.util.List;
 
@@ -18,3 +18,4 @@ public interface BookService {
 
     void delete(int id);
 }
+
