@@ -1,15 +1,16 @@
 package com.amazon.bookstore.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "category")
 public class Category {
+
     @Id
-    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @Column(name = "category_name")
@@ -20,8 +21,7 @@ public class Category {
     public Category() {
     }
 
-    public Category(int id, String name) {
-        this.id = id;
+    public Category(String name) {
         this.name = name;
     }
 
@@ -40,12 +40,17 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+
+    public String getCategoryName() {
+        return name;
     }
 
+    public void setCategoryName(String categoryName) {
+        this.name = categoryName;
+    }
+
+    @Override
+    public String toString() {
+        return "Category [id=" + id + ", name=" + name + "]";
+    }
 }
