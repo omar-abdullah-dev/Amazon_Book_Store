@@ -27,12 +27,8 @@ public class HomeController {
         int totalCategories = 0;
         int totalAuthors = 0;
 
-        try {
-            if (bookService != null) {
-                totalBooks = bookService.findAll().size();
-            }
-        } catch (Exception ignored) {
-        }
+        // Book feature is not implemented yet; default to 0
+        totalBooks = 0;
 
         try {
             if (categoryService != null) {
