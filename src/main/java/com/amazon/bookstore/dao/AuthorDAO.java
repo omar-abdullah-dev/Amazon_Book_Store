@@ -1,6 +1,6 @@
 package com.amazon.bookstore.dao;
 
-import com.bootcamp.bookstore.model.Author;
+import com.amazon.bookstore.model.Author;
 
 import java.util.List;
 
