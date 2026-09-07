@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- DB Configuration from properties file -->
+        <property name="connection.driver_class">db.driver</property>
+        <property name="connection.url">db.url</property>
+        <property name="connection.username">db.user</property>
+        <property name="connection.password">db.password</property>
+
+        <!-- SQL Dialect -->
+        <property name="dialect">db.dialect</property>
+        
+        <!-- Echo and Format SQL -->
+        <property name="show_sql">db.showSql</property>
+        <property name="format_sql">db.formatSql</property>
+
+        <!-- Schema Management -->
+        <property name="hbm2ddl.auto">db.hbm2ddl.auto</property>
+
+        
+
+
+    </session-factory>
+</hibernate-configuration>
