@@ -179,7 +179,7 @@
 <!-- Footer -->
 <footer class="py-4 border-top text-center text-muted small mt-auto">
     <div class="container">
-        &bull; Amazon Book Store Application
+        &bull; Amazon Book Store Application &bull;
     </div>
 </footer>
 
