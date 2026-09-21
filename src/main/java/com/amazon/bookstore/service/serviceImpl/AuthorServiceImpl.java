@@ -43,6 +43,18 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     @Transactional
+    public List<Author> findPaginated(int page, int pageSize) {
+        return authorDAO.findPaginated(page, pageSize);
+    }
+
+    @Override
+    @Transactional
+    public long count() {
+        return authorDAO.count();
+    }
+
+    @Override
+    @Transactional
     public void update(Author author) {
         authorDAO.update(author);
     }

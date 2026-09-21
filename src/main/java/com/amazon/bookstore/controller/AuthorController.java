@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/author")
@@ -22,10 +23,32 @@ public class AuthorController {
     private AuthorService authorService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String listAuthors(Model model) {
-        model.addAttribute(
-                "authors",
-                authorService.findAll());
+    public String listAuthors(
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "5") int size,
+            Model model) {
+        if (page < 1) {
+            page = 1;
+        }
+        if (size < 1) {
+            size = 5;
+        }
+
+        long totalItems = authorService.count();
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+
+        if (totalPages > 0 && page > totalPages) {
+            page = totalPages;
+        }
+
+        List<Author> authors = authorService.findPaginated(page, size);
+
+        model.addAttribute("authors", authors);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("pageSize", size);
+        model.addAttribute("totalItems", totalItems);
+
         return AppConstants.VIEW_AUTHOR_LIST;
     }
 
