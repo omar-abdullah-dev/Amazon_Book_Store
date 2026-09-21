@@ -285,3 +285,30 @@ body {
     background-color: rgba(148, 163, 184, 0.15) !important;
     color: #cbd5e1 !important;
 }
+
+/* Pagination Styling */
+.pagination .page-link {
+    color: var(--text-main);
+    border-color: var(--border-color);
+    background-color: var(--card-bg);
+    transition: all 0.2s ease;
+}
+
+.pagination .page-link:hover {
+    background-color: rgba(255, 153, 0, 0.15);
+    border-color: var(--amazon-yellow);
+    color: var(--text-main);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--amazon-yellow);
+    border-color: var(--amazon-yellow);
+    color: #111827;
+    font-weight: 700;
+}
+
+.pagination .page-item.disabled .page-link {
+    opacity: 0.5;
+    background-color: transparent;
+    border-color: var(--border-color);
+}

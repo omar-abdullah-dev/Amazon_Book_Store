@@ -143,6 +143,38 @@
                 </table>
             </div>
         </div>
+
+        <!-- Pagination Footer -->
+        <c:if test="${totalItems > 0}">
+            <div class="card-footer bg-light d-flex flex-wrap align-items-center justify-content-between py-3 px-4 border-top">
+                <div class="text-muted small mb-2 mb-md-0">
+                    Showing <span class="fw-semibold">${(currentPage - 1) * pageSize + 1}</span> to 
+                    <span class="fw-semibold">${(currentPage * pageSize > totalItems) ? totalItems : currentPage * pageSize}</span> of 
+                    <span class="fw-semibold">${totalItems}</span> categories
+                </div>
+                <c:if test="${totalPages > 1}">
+                    <nav aria-label="Category table pagination">
+                        <ul class="pagination pagination-sm mb-0">
+                            <li class="page-item ${currentPage <= 1 ? 'disabled' : ''}">
+                                <a class="page-link" href="${pageContext.request.contextPath}/category/list?page=${currentPage - 1}&size=${pageSize}" aria-label="Previous">
+                                    <i class="bi bi-chevron-left"></i> Previous
+                                </a>
+                            </li>
+                            <c:forEach begin="1" end="${totalPages}" var="pageIndex">
+                                <li class="page-item ${pageIndex == currentPage ? 'active' : ''}">
+                                    <a class="page-link" href="${pageContext.request.contextPath}/category/list?page=${pageIndex}&size=${pageSize}">${pageIndex}</a>
+                                </li>
+                            </c:forEach>
+                            <li class="page-item ${currentPage >= totalPages ? 'disabled' : ''}">
+                                <a class="page-link" href="${pageContext.request.contextPath}/category/list?page=${currentPage + 1}&size=${pageSize}" aria-label="Next">
+                                    Next <i class="bi bi-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </c:if>
+            </div>
+        </c:if>
     </div>
 </div>
 

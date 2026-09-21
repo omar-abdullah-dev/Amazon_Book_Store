@@ -14,6 +14,10 @@ public interface CategoryDAO {
 
     List<Category> findAll();
 
+    List<Category> findPaginated(int page, int pageSize);
+
+    long count();
+
     void update(Category category);
 
     void delete(int id);
