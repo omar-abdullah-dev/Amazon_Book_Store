@@ -57,6 +57,27 @@ public class AuthorDAOImpl implements AuthorDAO {
     }
 
     @Override
+    public List<Author> findPaginated(int page, int pageSize) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Author order by id asc");
+        query.setFirstResult((page - 1) * pageSize);
+        query.setMaxResults(pageSize);
+        List<Author> list = query.list();
+        if (list != null && !list.isEmpty()) {
+            return list;
+        }
+        return new ArrayList<Author>();
+    }
+
+    @Override
+    public long count() {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(a.id) from Author a");
+        Long count = (Long) query.uniqueResult();
+        return count != null ? count : 0L;
+    }
+
+    @Override
     public void update(Author author) {
         Session session = sessionFactory.getCurrentSession();
         session.update(author);

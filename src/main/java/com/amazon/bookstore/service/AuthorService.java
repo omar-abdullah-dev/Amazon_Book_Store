@@ -14,6 +14,10 @@ public interface AuthorService {
 
     List<Author> findAll();
 
+    List<Author> findPaginated(int page, int pageSize);
+
+    long count();
+
     void update(Author author);
 
     void delete(int id);
