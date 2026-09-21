@@ -41,6 +41,18 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
+    public List<Category> findPaginated(int page, int pageSize) {
+        return categoryDAO.findPaginated(page, pageSize);
+    }
+
+    @Override
+    @Transactional
+    public long count() {
+        return categoryDAO.count();
+    }
+
+    @Override
+    @Transactional
     public void update(Category category) {
         categoryDAO.update(category);
     }

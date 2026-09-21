@@ -53,6 +53,23 @@ public class CategoryDAOImpl implements CategoryDAO {
     }
 
     @Override
+    public List<Category> findPaginated(int page, int pageSize) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Category order by id asc");
+        query.setFirstResult((page - 1) * pageSize);
+        query.setMaxResults(pageSize);
+        return query.list();
+    }
+
+    @Override
+    public long count() {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(c.id) from Category c");
+        Long count = (Long) query.uniqueResult();
+        return count != null ? count : 0L;
+    }
+
+    @Override
     public void update(Category category) {
         Session session = sessionFactory.getCurrentSession();
         session.update(category);

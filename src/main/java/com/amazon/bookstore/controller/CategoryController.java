@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/category")
@@ -22,8 +23,32 @@ public class CategoryController {
     CategoryService categoryService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String listCategories(Model model) {
-        model.addAttribute("categories", categoryService.findAll());
+    public String listCategories(
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "5") int size,
+            Model model) {
+        if (page < 1) {
+            page = 1;
+        }
+        if (size < 1) {
+            size = 5;
+        }
+
+        long totalItems = categoryService.count();
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+
+        if (totalPages > 0 && page > totalPages) {
+            page = totalPages;
+        }
+
+        List<Category> categories = categoryService.findPaginated(page, size);
+
+        model.addAttribute("categories", categories);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("pageSize", size);
+        model.addAttribute("totalItems", totalItems);
+
         return AppConstants.VIEW_CATEGORY_LIST;
     }
     @RequestMapping(value = {"/showFormForAdd", "/showAddForm"}, method = RequestMethod.GET)
