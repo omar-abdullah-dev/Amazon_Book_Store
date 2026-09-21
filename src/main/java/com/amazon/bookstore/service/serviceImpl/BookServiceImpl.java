@@ -41,6 +41,18 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
+    public List<Book> findPaginated(int page, int pageSize) {
+        return bookDAO.findPaginated(page, pageSize);
+    }
+
+    @Override
+    @Transactional
+    public long count() {
+        return bookDAO.count();
+    }
+
+    @Override
+    @Transactional
     public void update(Book book) {
         bookDAO.update(book);
     }

@@ -14,6 +14,10 @@ public interface BookDAO {
 
     List<Book> findAll();
 
+    List<Book> findPaginated(int page, int pageSize);
+
+    long count();
+
     void update(Book book);
 
     void delete(int id);

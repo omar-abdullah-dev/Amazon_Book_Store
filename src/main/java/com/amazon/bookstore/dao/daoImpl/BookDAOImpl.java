@@ -74,6 +74,37 @@ public class BookDAOImpl implements BookDAO {
     }
 
     @Override
+    public List<Book> findPaginated(int page, int pageSize) {
+        Session session = sessionFactory.getCurrentSession();
+        Query idQuery = session.createQuery("select b.id from Book b order by b.id asc");
+        idQuery.setFirstResult((page - 1) * pageSize);
+        idQuery.setMaxResults(pageSize);
+        List<Integer> ids = idQuery.list();
+
+        if (ids == null || ids.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        String hql = "select distinct b from Book b " +
+                "left join fetch b.category " +
+                "left join fetch b.authors " +
+                "left join fetch b.bookDetails " +
+                "where b.id in (:ids) " +
+                "order by b.id asc";
+        Query bookQuery = session.createQuery(hql);
+        bookQuery.setParameterList("ids", ids);
+        return bookQuery.list();
+    }
+
+    @Override
+    public long count() {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(b.id) from Book b");
+        Long count = (Long) query.uniqueResult();
+        return count != null ? count : 0L;
+    }
+
+    @Override
     public void update(Book book) {
         Session session = sessionFactory.getCurrentSession();
         session.update(book);
