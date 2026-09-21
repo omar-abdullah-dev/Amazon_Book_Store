@@ -58,8 +58,32 @@ public class BookController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String listBooks(Model model) {
-        model.addAttribute("books", bookService.findAll());
+    public String listBooks(
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "5") int size,
+            Model model) {
+        if (page < 1) {
+            page = 1;
+        }
+        if (size < 1) {
+            size = 5;
+        }
+
+        long totalItems = bookService.count();
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+
+        if (totalPages > 0 && page > totalPages) {
+            page = totalPages;
+        }
+
+        List<Book> books = bookService.findPaginated(page, size);
+
+        model.addAttribute("books", books);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("pageSize", size);
+        model.addAttribute("totalItems", totalItems);
+
         return AppConstants.VIEW_BOOK_LIST;
     }
 
